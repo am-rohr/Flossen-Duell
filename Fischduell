@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flossen-Duell – Fische, Klasse 5</title>
+<style>
+:root{--ocean:#063b5c;--sea:#087e8b;--foam:#eaf8fb;--coral:#ff8552;--gold:#ffd166;--ink:#123047}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);background:linear-gradient(160deg,#dff7fb,#f8fcff 60%,#fff0dc);min-height:100vh}
+header{background:linear-gradient(120deg,var(--ocean),var(--sea));color:white;text-align:center;padding:1.5rem 1rem 2rem;border-radius:0 0 28px 28px}
+header h1{font-size:clamp(2rem,5vw,3.2rem);margin:.2rem}header p{margin:.3rem auto;max-width:700px}
+main{max-width:1100px;margin:1rem auto;padding:0 1rem 2rem}.teams{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:-1rem}
+.team,.panel{background:white;border:2px solid #d6edf2;border-radius:20px;padding:1rem;box-shadow:0 8px 24px #06415c12}
+.team{text-align:center}.team:first-child{border-top:6px solid var(--coral)}.team:last-child{border-top:6px solid var(--gold)}
+.team input{width:100%;max-width:260px;font-size:1.1rem;font-weight:700;text-align:center;border:1px solid #c6dce3;border-radius:10px;padding:.5rem}
+.score{font-size:3.3rem;font-weight:900;color:var(--ocean);line-height:1.2}.scoreline{display:flex;justify-content:center;align-items:center;gap:.6rem;margin:.4rem}
+button{font:inherit;font-weight:700;border:0;border-radius:12px;padding:.7rem 1rem;cursor:pointer;background:var(--sea);color:white;transition:transform .12s}button:hover{transform:translateY(-1px)}button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:2px}.small{padding:.35rem .7rem}.minus{background:#e9f0f3;color:var(--ink)}.coral{background:var(--coral);color:#3a1d10}.gold{background:var(--gold);color:#3d2a00}.dark{background:var(--ocean)}.toolbar{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin:1rem 0}
+.layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,1fr);gap:1rem}.panel h2{margin:.2rem 0 .8rem}.eyebrow{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sea);font-weight:900}
+.rounds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem}.round-btn{background:#edf8fa;color:var(--ocean);border:2px solid #cde9ef;text-align:left}.round-btn.active{background:var(--ocean);color:white;border-color:var(--ocean)}.round-btn span{display:block;font-size:.8rem;font-weight:500;opacity:.85;margin-top:.2rem}
+.question{font-size:clamp(1.3rem,3vw,1.9rem);font-weight:850;line-height:1.25;margin:.8rem 0 1rem}.answers{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}.answer{background:#eff8fa;color:var(--ink);border:2px solid #d6edf2;text-align:left}.answer.selected{border-color:var(--sea);background:#d8f4f4}.answer.correct{background:#dcf8e7;border-color:#24945b}.answer.wrong{background:#ffe7df;border-color:#d55d40}
+.feedback{padding:.8rem;border-radius:12px;background:#f3f8fa;margin-top:.8rem}.hidden{display:none!important}.tag{display:inline-block;padding:.25rem .6rem;border-radius:999px;background:#fff0d0;color:#704300;font-size:.85rem;font-weight:800}
+.progress{height:8px;background:#e5f0f3;border-radius:99px;overflow:hidden;margin:.6rem 0}.progress div{height:100%;background:var(--coral);transition:width .2s}.note{font-size:.9rem;color:#45616f}.winner{text-align:center;font-size:1.3rem;font-weight:900;padding:.7rem}
+@media(max-width:720px){.teams,.layout{grid-template-columns:1fr}.teams{margin-top:1rem}.rounds{grid-template-columns:1fr 1fr}.answers{grid-template-columns:1fr}.score{font-size:2.6rem}}
+@media print{body{background:white}header{background:white;color:var(--ink);border:2px solid}.toolbar,button,.rounds{display:none!important}.teams,.layout{display:block}.panel,.team{box-shadow:none;margin:.5rem 0;break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><div style="font-size:2rem" aria-hidden="true">🐟 🐠 🐡</div><h1>Flossen-Duell</h1><p>Das große Fisch-Wissensspiel für Klasse 5 · Biologie / NaWi · Mecklenburg-Vorpommern</p><p>Wissen zeigen, Punkte sammeln und gemeinsam fair spielen!</p></header>
+<main>
+<section class="teams" aria-label="Spielstand">
+ <div class="team"><div class="eyebrow">Team Rot</div><input id="name0" value="Die Flossen-Flitzer" aria-label="Name Team 1"><div class="score" id="score0" aria-live="polite">0</div><div class="scoreline"><button class="small coral" onclick="changeScore(0,-1)" aria-label="Team 1 einen Punkt abziehen">− 1</button><button class="small coral" onclick="changeScore(0,1)">+ 1 Punkt</button><button class="small coral" onclick="changeScore(0,3)">+ 3 Bonus</button></div></div>
+ <div class="team"><div class="eyebrow">Team Gold</div><input id="name1" value="Die Kiemen-Könige" aria-label="Name Team 2"><div class="score" id="score1" aria-live="polite">0</div><div class="scoreline"><button class="small gold" onclick="changeScore(1,-1)" aria-label="Team 2 einen Punkt abziehen">− 1</button><button class="small gold" onclick="changeScore(1,1)">+ 1 Punkt</button><button class="small gold" onclick="changeScore(1,3)">+ 3 Bonus</button></div></div>
+</section>
+<div class="toolbar"><button class="dark" onclick="window.print()">🖨️ Tafelansicht / Drucken</button><button class="minus" onclick="resetGame()">↻ Neue Runde</button><button class="minus" onclick="announceWinner()">🏆 Spielstand auswerten</button></div>
+<div id="winner" class="winner" aria-live="polite"></div>
+<div class="layout">
+<section class="panel"><div class="eyebrow" id="roundLabel">Runde 1</div><h2 id="roundTitle">Fisch-Detektive</h2><div class="progress"><div id="progressBar" style="width:10%"></div></div><div class="tag" id="pointsTag">2 Punkte</div><div class="question" id="question">Welches Organ hilft den meisten Fischen, Sauerstoff aus dem Wasser aufzunehmen?</div><div id="answers" class="answers"></div><div id="feedback" class="feedback hidden" aria-live="polite"></div><div class="toolbar" style="justify-content:flex-start"><button onclick="reveal()">💡 Lösung zeigen</button><button class="minus" onclick="nextRound()">Nächste Frage →</button></div><p class="note">Tipp: Erst Team auswählen lassen, dann Lösung zeigen. Für eine richtige Antwort Punkte mit den Team-Schaltflächen vergeben.</p></section>
+<aside class="panel"><div class="eyebrow">Spielmodus</div><h2>So spielt ihr</h2><ol><li>Wählt eine Runde aus.</li><li>Das Team mit der Antwort meldet sich.</li><li>Antwort auswählen und „Lösung zeigen“ drücken.</li><li>Für richtige Antworten Punkte vergeben.</li><li>Wechselt euch ab – oder spielt im Duell um die schnellste Antwort!</li></ol><hr style="border:0;border-top:1px solid #d6edf2;margin:1rem 0"><h2>🐬 Extra-Spielideen</h2><ul><li><b>Blitzrunde:</b> 30 Sekunden, so viele Fischmerkmale wie möglich nennen.</li><li><b>Pantomime:</b> Einen Fisch ohne Worte darstellen (+2 Punkte).</li><li><b>Zeichen-Challenge:</b> Kiemen, Flossen oder Schwimmblase an die Tafel zeichnen (+2 Punkte).</li><li><b>Team-Erklärung:</b> Eine Antwort in eigenen Worten erklären (+1 Zusatzpunkt).</li></ul><p class="note">Die Fragen behandeln typische Fisch-Themen der 5. Klasse. Bitte mit dem aktuellen schulinternen Fachplan Biologie/NaWi MV abgleichen.</p></aside>
+</div>
+</main>
+<script>
+const rounds=[
+{title:"Fisch-Detektive",type:"Multiple Choice",points:2,q:"Welches Organ hilft den meisten Fischen, Sauerstoff aus dem Wasser aufzunehmen?",a:["Die Lunge","Die Kiemen","Die Hautschuppen","Die Schwimmblase"],correct:1,why:"Kiemen nehmen gelösten Sauerstoff aus dem Wasser auf."},
+{title:"Wahr oder Quatsch?",type:"Richtig / Falsch",points:1,q:"Fische atmen normalerweise mit Kiemen.",a:["Wahr!","Quatsch!"],correct:0,why:"Die meisten Fische nehmen Sauerstoff mithilfe ihrer Kiemen auf."},
+{title:"Körperbau-Klick",type:"Multiple Choice",points:2,q:"Wozu dient die Schwimmblase bei vielen Knochenfischen?",a:["Zum Hören von Geräuschen","Zum Verdauen der Nahrung","Sie hilft, die Höhe im Wasser zu halten","Sie produziert Schuppen"],correct:2,why:"Die Schwimmblase hilft vielen Knochenfischen, ohne ständiges Schwimmen in einer bestimmten Wassertiefe zu bleiben."},
+{title:"Flossen-Funktion",type:"Zuordnen",points:2,q:"Welche Flosse dient besonders als Steuer?",a:["Schwanzflosse","Rückenflosse","Brustflosse","Afterflosse"],correct:2,why:"Die paarigen Brustflossen helfen beim Steuern und Manövrieren. Mehrere Flossen arbeiten beim Schwimmen zusammen."},
+{title:"Lebensraum-Check",type:"Multiple Choice",points:2,q:"Welcher Fisch lebt typischerweise im Süßwasser?",a:["Hering","Karpfen","Makrele","Thunfisch"],correct:1,why:"Der Karpfen lebt im Süßwasser, zum Beispiel in Seen und Teichen."},
+{title:"Schuppen-Schlau",type:"Wahr / Falsch",points:1,q:"Die Schuppen und die Schleimschicht können den Fisch schützen.",a:["Wahr!","Quatsch!"],correct:0,why:"Sie schützen unter anderem vor Verletzungen und erschweren es manchen Krankheitserregern, sich festzusetzen."},
+{title:"Nahrungskette",type:"Knobel-Frage",points:3,q:"Ein kleiner Fisch frisst Wasserflöhe. Ein größerer Fisch frisst den kleinen Fisch. Wer ist hier der Räuber des kleinen Fisches?",a:["Der Wasserfloh","Der größere Fisch","Die Wasserpflanze","Alle sind Pflanzenfresser"],correct:1,why:"Der größere Fisch ist der Räuber; der kleine Fisch ist seine Beute."},
+{title:"Körper-Quiz",type:"Multiple Choice",points:2,q:"Wie ist die typische Körperform vieler frei schwimmender Fische?",a:["Stromlinienförmig","Würfelförmig","Kugelförmig mit Beinen","Flach wie ein Blatt Papier"],correct:0,why:"Eine stromlinienförmige Körperform verringert den Wasserwiderstand."},
+{title:"Sinnes-Spezial",type:"Multiple Choice",points:3,q:"Welcher Sinn hilft vielen Fischen, Wasserbewegungen wahrzunehmen?",a:["Seitenlinienorgan","Nase wie beim Hund allein","Federn","Ohrmuscheln außen am Kopf"],correct:0,why:"Das Seitenlinienorgan nimmt Bewegungen und Druckunterschiede im Wasser wahr."},
+{title:"Finale: Fisch oder nicht?",type:"Blitzfrage",points:3,q:"Was haben Fische als Wirbeltiere gemeinsam?",a:["Sie besitzen eine Wirbelsäule","Sie haben alle vier Beine","Sie atmen alle Luft mit Lungen","Sie leben alle im Meer"],correct:0,why:"Fische gehören zu den Wirbeltieren und besitzen eine Wirbelsäule. Nicht alle leben im Meer."}
+];
+let current=0,scores=[0,0],chosen=null,revealed=false;
+function render(){const r=rounds[current];document.getElementById("roundLabel").textContent="Runde "+(current+1)+" von "+rounds.length;document.getElementById("roundTitle").textContent=r.title;document.getElementById("progressBar").style.width=((current+1)/rounds.length*100)+"%";document.getElementById("pointsTag").textContent=r.points+" "+(r.points===1?"Punkt":"Punkte");document.getElementById("question").textContent=r.q;document.getElementById("feedback").classList.add("hidden");document.getElementById("feedback").textContent="";chosen=null;revealed=false;const box=document.getElementById("answers");box.innerHTML="";r.a.forEach((answer,i)=>{const b=document.createElement("button");b.className="answer";b.textContent=String.fromCharCode(65+i)+". "+answer;b.onclick=()=>selectAnswer(i,b);b.setAttribute("aria-pressed","false");box.appendChild(b)});document.getElementById("winner").textContent=""}
+function selectAnswer(i,b){chosen=i;document.querySelectorAll(".answer").forEach(x=>{x.classList.remove("selected");x.setAttribute("aria-pressed","false")});b.classList.add("selected");b.setAttribute("aria-pressed","true");if(revealed)reveal()}
+function reveal(){const r=rounds[current],fb=document.getElementById("feedback");revealed=true;document.querySelectorAll(".answer").forEach((b,i)=>{b.classList.remove("correct","wrong");if(i===r.correct)b.classList.add("correct");else if(i===chosen)b.classList.add("wrong")});fb.classList.remove("hidden");fb.innerHTML="<b>"+(chosen===null?"Lösung:":chosen===r.correct?"🎉 Richtig!":"Noch nicht ganz!")+"</b> "+r.why}
+function changeScore(team,delta){scores[team]=Math.max(0,scores[team]+delta);document.getElementById("score"+team).textContent=scores[team];document.getElementById("winner").textContent=""}
+function nextRound(){current=(current+1)%rounds.length;render()}
+function resetGame(){if(!confirm("Punktestand und Runde wirklich zurücksetzen?"))return;scores=[0,0];current=0;document.getElementById("score0").textContent="0";document.getElementById("score1").textContent="0";render()}
+function announceWinner(){const a=document.getElementById("name0").value||"Team 1",b=document.getElementById("name1").value||"Team 2";let msg=scores[0]===scores[1]?"🤝 Unentschieden!":scores[0]>scores[1]?"🏆 "+a+" gewinnen!":"🏆 "+b+" gewinnen!";document.getElementById("winner").textContent=msg+" Endstand: "+scores[0]+" : "+scores[1]}
+render();
+</script>
+</body>
+</html>
